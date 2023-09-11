@@ -1,0 +1,13 @@
+.main {
+    background: linear-gradient(
+        rgb(147, 72, 197) 20%,
+        white 60%
+    );
+
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
