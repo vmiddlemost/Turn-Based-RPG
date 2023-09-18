@@ -7,8 +7,10 @@ export const Bar = ({ label, value, maxValue }) => {
                 {label}
             </div>
             <div className={styles.max}>
-                <div className={styles.value} style={{ width: `${(value / maxValue) * 100}%` }}>
-
+                <div 
+                className={styles.value} 
+                style={{ width: `${(value / maxValue) * 100}%` }}
+                >
                 </div>
             </div>
         </div>
