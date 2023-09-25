@@ -1,15 +1,42 @@
 import { PlayerSummary } from 'components/PlayerSummary';
 import styles from './styles.module.css';
-import { useState } from 'react';
 import { opponentStats, playerStats } from 'shared';
 import { BattleMenu } from 'components/BattleMenu';
 import { BattleAnnouncer } from 'components/BattleAnnouncer/BattleAnnouncer';
+import { useBattleSequence } from 'components/hooks/useBattleSequence';
+import { useEffect, useState } from 'react';
+import { useAIOpponent } from 'components/hooks';
+import { wait } from '@testing-library/user-event/dist/utils';
 
-export const Battle = () => {
+export const Battle = ({ onGameEnd }) => {
+    const [sequence, setSequence] = useState({});
 
-    const [playerHealth, setPlayerHealth] = useState(playerStats.maxHealth);
-    const [opponentHealth, setOpponentHealth] = useState(opponentStats.maxHealth);
-    const [announcerMessage, setAnnouncerMessage] = useState('');
+    const {
+        turn,
+        inSequence,
+        playerHealth,
+        opponentHealth,
+        announcerMessage,
+        playerAnimation,
+        opponentAnimation
+    } = useBattleSequence(sequence);
+
+    const AIChoice = useAIOpponent(turn);
+
+    useEffect(() => {
+        if (AIChoice && turn === 1 && !inSequence) {
+            setSequence({ turn, mode: AIChoice });
+        }
+    }, [turn, AIChoice, inSequence]);
+
+    useEffect(() => {
+        if (playerHealth === 0 || opponentHealth === 0) {
+            (async () => {
+                await wait(2000);
+                onGameEnd(playerHealth === 0 ? opponentStats : playerStats);
+            })();
+        }
+    }, [playerHealth, opponentHealth, onGameEnd]);
 
     return (
         <>
@@ -35,6 +62,7 @@ export const Battle = () => {
                     <img
                         alt={playerStats.name}
                         src={playerStats.img}
+                        className={styles[playerAnimation]}
                     >
                     </img>
                 </div>
@@ -42,6 +70,7 @@ export const Battle = () => {
                     <img
                         alt={opponentStats.name}
                         src={opponentStats.img}
+                        className={styles[opponentAnimation]}
                     >
                     </img>
                 </div>
@@ -62,9 +91,9 @@ export const Battle = () => {
 
                         <div className={styles.hudChild}>
                             <BattleMenu
-                                onAttack={() => console.log('Attack!')}
-                                onMagic={() => console.log('Magic!')}
-                                onHeal={() => console.log('Heal!')}
+                                onAttack={() => setSequence({ turn, mode: 'attack' })}
+                                onMagic={() => setSequence({ turn, mode: 'magic' })}
+                                onHeal={() => setSequence({ turn, mode: 'heal' })}
                             />
                         </div>
                     </div>

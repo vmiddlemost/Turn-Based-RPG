@@ -14,4 +14,6 @@ export const useAIOpponent = turn => {
             setAIChoice(options[Math.floor(Math.random() * options.length)]);
         }
     }, [turn]);
+
+    return AIChoice;
 };

@@ -7,6 +7,7 @@ export const playerStats = {
     attack: 12,
     defense: 12,
     magic: 8,
+    magicDefense: 8,
     heal: 10
 };
 
@@ -19,5 +20,6 @@ export const opponentStats = {
     attack: 5,
     defense: 3,
     magic: 3,
-    heal: 0
+    magicDefense: 4,
+    heal: 5
 };
