@@ -15,6 +15,7 @@ export const useBattleSequence = (sequence) => {
         const { mode, turn } = sequence;
 
         if (mode) {
+            
             const attacker = turn === 0 ? playerStats : opponentStats;
             const receiver = turn === 0 ? opponentStats : playerStats;
             switch (mode) {
@@ -22,7 +23,6 @@ export const useBattleSequence = (sequence) => {
                 case 'attack': {
                     const damage = attack({ attacker, receiver });
                     (async () => {
-                        // set the sequence to be true
                         setInSequence(true);
                         setAnnouncerMessage(`${attacker.name} has chosen to attack!`);
                         // wait 1000ms
@@ -65,7 +65,6 @@ export const useBattleSequence = (sequence) => {
                 case 'magic': {
                     const magicDamage = magic({ attacker, receiver });
                     (async () => {
-                        // set the sequence to be true
                         setInSequence(true);
                         setAnnouncerMessage(`${attacker.name} has cast a magic attack!`);
                         // wait 1000ms
@@ -108,8 +107,13 @@ export const useBattleSequence = (sequence) => {
                 case 'heal': {
                     const healing = heal({ attacker, receiver });
                     (async () => {
-                        // set the sequence to be true
                         setInSequence(true);
+                        if (turn === 0)
+                        {
+                            console.log("player healing");
+                        } else {
+                            console.log("opponent healing");
+                        }
                         setAnnouncerMessage(`${attacker.name} is healing!`);
                         // wait 1000ms
                         await wait(1000);

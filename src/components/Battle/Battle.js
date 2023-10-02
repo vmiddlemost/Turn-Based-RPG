@@ -21,14 +21,16 @@ export const Battle = ({ onGameEnd }) => {
         opponentAnimation
     } = useBattleSequence(sequence);
 
+    // if it's the opponent's turn, activate their simple AI to make a choice on what to do on said turn
     const AIChoice = useAIOpponent(turn);
-
     useEffect(() => {
         if (AIChoice && turn === 1 && !inSequence) {
             setSequence({ turn, mode: AIChoice });
         }
     }, [turn, AIChoice, inSequence]);
 
+    // check if either character's health has reached 0
+    // and if so, activate the game end screen
     useEffect(() => {
         if (playerHealth === 0 || opponentHealth === 0) {
             (async () => {
@@ -88,12 +90,12 @@ export const Battle = ({ onGameEnd }) => {
                         />
                     </div>
                     <div className={styles.hud}>
-
                         <div className={styles.hudChild}>
                             <BattleMenu
                                 onAttack={() => setSequence({ turn, mode: 'attack' })}
                                 onMagic={() => setSequence({ turn, mode: 'magic' })}
                                 onHeal={() => setSequence({ turn, mode: 'heal' })}
+                                inSequence={inSequence}
                             />
                         </div>
                     </div>
