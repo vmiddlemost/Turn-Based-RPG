@@ -1,6 +1,6 @@
 export const playerStats = {
-    level: 3,
-    maxHealth: 40,
+    level: 5,
+    maxHealth: 60,
     name: 'Player',
     img: '/assets/oscar.png',
 
@@ -13,7 +13,7 @@ export const playerStats = {
 
 export const opponentStats = {
     level: 1,
-    maxHealth: 10,
+    maxHealth: 20,
     name: 'Opponent',
     img: '/assets/onionKnight.png',
 

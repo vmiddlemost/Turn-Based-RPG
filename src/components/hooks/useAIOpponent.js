@@ -13,6 +13,9 @@ export const useAIOpponent = turn => {
         if (turn === 1) {
             const options = ['attack', 'magic', 'heal'];
             setAIChoice(options[Math.floor(Math.random() * options.length)]);
+            //setAIChoice('attack');
+            //setAIChoice('magic');
+            //setAIChoice('heal');
         }
     }, [turn]);
     return AIChoice;

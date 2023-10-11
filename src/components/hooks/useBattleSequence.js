@@ -15,6 +15,15 @@ export const useBattleSequence = (sequence) => {
         const { mode, turn } = sequence;
 
         if (mode) {
+
+            if (opponentHealth === 0) {
+            
+                (async () => {
+                    setAnnouncerMessage(`${playerStats.name} has defeated ${opponentStats.name}!`);
+                    await wait(2000);
+                    console.log("check 1");
+                })();
+            }
             
             const attacker = turn === 0 ? playerStats : opponentStats;
             const receiver = turn === 0 ? opponentStats : playerStats;
@@ -108,12 +117,6 @@ export const useBattleSequence = (sequence) => {
                     const healing = heal({ attacker, receiver });
                     (async () => {
                         setInSequence(true);
-                        if (turn === 0)
-                        {
-                            console.log("player healing");
-                        } else {
-                            console.log("opponent healing");
-                        }
                         setAnnouncerMessage(`${attacker.name} is healing!`);
                         // wait 1000ms
                         await wait(1000);

@@ -6,19 +6,21 @@ export const wait = ms => new Promise(
     });
 
 export const attack = ({ attacker , receiver}) => {
-    const receivedDamage = attacker.attack - (attacker.level - receiver.level) * 1.25;
+    const receivedDamage = attacker.attack * (0.975 + (Math.random() / 2));
     const finalDamage = receivedDamage - receiver.defense / 2;
 
-    return finalDamage;
+    console.log(finalDamage);
+    return Math.floor(finalDamage);
 };
 
 export const magic = ({ attacker, receiver }) => {
-    const receivedDamage = attacker.magic - (attacker.level - receiver.level) * 1.25;
+    const receivedDamage = attacker.magic * (0.975 + (Math.random() / 2));
     const finalDamage = receivedDamage - receiver.magicDefense / 2;
+    console.log(finalDamage);
 
-    return finalDamage;
+    return Math.floor(finalDamage);
 };
 
 export const heal = ({ receiver }) => {
-    return receiver.magic + receiver.level * 0.25;
+    return receiver.magic + (receiver.level * 0.25);
 }

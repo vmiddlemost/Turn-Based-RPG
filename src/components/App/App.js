@@ -7,7 +7,7 @@ import { EndMenu } from 'components/EndMenu';
 
 export const App = () => {
   const [mode, setMode] = useState('start');
-  const [winner, setWinner] = useState();
+  const [loser, setLoser] = useState();
 
   return (
     <div className={styles.main}>
@@ -15,16 +15,16 @@ export const App = () => {
         <StartMenu onStartClick={() => setMode('battle')} />
       )}
 
-      {mode === 'battle' && <Battle onGameEnd={winner => {
-        setWinner(winner);
+      {mode === 'battle' && <Battle onGameEnd={loser => {
+        setLoser(loser);
         setMode('gameOver');
       }} />}
 
       {mode === 'gameOver' && (
         <EndMenu 
-          winner={winner} 
+          loser={loser} 
           onStartClick={() => {
-            setWinner(undefined);
+            setLoser(undefined);
             setMode('battle');
           }} 
         />

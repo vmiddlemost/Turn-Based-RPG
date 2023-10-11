@@ -35,7 +35,7 @@ export const Battle = ({ onGameEnd }) => {
         if (playerHealth === 0 || opponentHealth === 0) {
             (async () => {
                 await wait(2000);
-                onGameEnd(playerHealth === 0 ? opponentStats : playerStats);
+                onGameEnd(playerHealth === 0 ? playerStats : opponentStats);
             })();
         }
     }, [playerHealth, opponentHealth, onGameEnd]);

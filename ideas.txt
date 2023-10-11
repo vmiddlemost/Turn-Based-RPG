@@ -1,0 +1,6 @@
+- Allow player to choose character from a selction. They'll have differing stats.
+- Add different moves/animations for different characters.
+
+- Add diffrent enemies with differing stats
+
+- Add a little hit marker with the damage that's been dealt written on it
